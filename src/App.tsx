@@ -1,13 +1,19 @@
-// import './styles/styles.scss';
-import { Component } from 'react';
-import Spinner from './components/Spinner';
+import './styles/styles.scss';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import NavBar from './components/NavBar';
+import Home from './pages/Home';
 
-export default class App extends Component {
-  render() {
-    return (
-      <div>
-        <Spinner />
-      </div>
-    );
-  }
+function App() {
+  return (
+    <>
+      <Router>
+        <NavBar />
+        <Routes>
+          <Route path='/' element={<Home />} />
+        </Routes>
+      </Router>
+    </>
+  );
 }
+
+export default App;
