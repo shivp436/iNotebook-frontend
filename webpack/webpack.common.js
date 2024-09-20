@@ -30,6 +30,9 @@ module.exports = {
       {
         test: /\.(?:ico|png|svg|jpg|jpeg|gif|ttf)$/i,
         type: 'asset/resource',
+        generator: {
+          filename: 'assets/[name].[hash][ext]', // Hashed output for assets
+        },
       },
     ],
   },
@@ -46,15 +49,17 @@ module.exports = {
     // it allows us to use direct paths of the assets in the code
     // otherwise we have to use the require method to import the assets
     // always use the require method to import the assets,
+    
+    // add this to generate an asset directory with original file names
     // it will be better for the performance
-    new CopyWebpackPlugin({
-      patterns: [
-        {
-          from: path.resolve(__dirname, '..', './src/assets'),
-          to: 'assets',
-        },
-      ],
-    }),
+    // new CopyWebpackPlugin({
+    //   patterns: [
+    //     {
+    //       from: path.resolve(__dirname, '..', './src/assets'),
+    //       to: 'assets',
+    //     },
+    //   ],
+    // }),
     new Dotenv({
       path: './.env.local',
     }),
