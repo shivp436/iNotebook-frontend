@@ -36,12 +36,12 @@ function NavBar() {
                 value={searchText}
                 onChange={(e) => setSearchText(e.target.value)}
               />
-              <Button type='submit' className='me-3'>
+              <Button type='submit' className='me-3 bg-light'>
                 <i className='bi bi-search' />
               </Button>
             </Form>
             <Nav.Link as={Link} to={'/'}>
-              <i className='bi bi-person-circle' />
+              <i className='bi bi-person-circle text-light' />
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>

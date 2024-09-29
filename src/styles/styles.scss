@@ -3,3 +3,16 @@
 // Bootstrap
 @import '~bootstrap/dist/css/bootstrap.min.css';
 @import '~bootstrap-icons/font/bootstrap-icons.css';
+
+// variables
+$black: #000;
+
+.notecard-content {
+  cursor: pointer;
+}
+
+i {
+  color: $black;
+  // background-color: white;
+  margin: 0px;
+}

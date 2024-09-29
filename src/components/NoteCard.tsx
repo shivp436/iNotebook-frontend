@@ -1,5 +1,9 @@
 /* eslint-disable react/prop-types */
 import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import NoteContext, { NoteContextType } from '../context/noteContext';
+import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export interface INote {
   _id: string;
@@ -17,20 +21,38 @@ interface INoteCardProps {
 }
 
 const NoteCard: React.FC<INoteCardProps> = ({ note }) => {
-  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    const target = e.currentTarget as HTMLDivElement;
-    console.log(target.id);
+  const navigate = useNavigate();
+  const context = useContext(NoteContext) as NoteContextType;
+  if (!context) {
+    return null; // or handle the error appropriately
+  }
+  const { deleteNote } = context;
+
+  const handleDelete = () => {
+    deleteNote(note._id);
+  };
+
+  const handleEdit = () => {
+    navigate(`/edit-note/${note._id}`);
   };
 
   return (
     <div className='container'>
-      <Card onClick={handleClick} id={note._id}>
+      <Card>
         <Card.Body>
-          <Card.Title>{note.title}</Card.Title>
-          <Card.Text>
-            {note.content}
-            {note._id}
-          </Card.Text>
+          <div className='notecard-content' onClick={handleEdit}>
+            <Card.Title>{note.title}</Card.Title>
+            <Card.Text>
+              {note.content}
+              {note._id}
+            </Card.Text>
+          </div>
+          <Button className='mx-1 my-2 bg-light' onClick={handleDelete}>
+            <i className='bi bi-trash' />
+          </Button>
+          <Button className='mx-1 my-2 bg-light' onClick={handleEdit}>
+            <i className='bi bi-pencil' />
+          </Button>
         </Card.Body>
       </Card>
     </div>

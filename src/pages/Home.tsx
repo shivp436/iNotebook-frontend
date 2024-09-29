@@ -1,17 +1,24 @@
 import NoteSection from '../components/NotesSection';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import NoteContext, { NoteContextType } from '../context/noteContext';
-import { notesInitial } from '../context/NoteState';
 
 function Home() {
   const context = useContext(NoteContext) as NoteContextType;
-  const { notes } = context;
+  const { notes, getNotes } = context;
+
+  if (!context) {
+    return null;
+  }
+
+  useEffect(() => {
+    getNotes();
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <div>
-      <NoteSection notes={notesInitial} title='Pinned Notes' />
-      <NoteSection notes={notesInitial} title='All Notes' />
-      <NoteSection notes={notes} title='Notes Context' />
+      <NoteSection notes={notes} title='Pinned Notes' isPinned={true} />
+      <NoteSection notes={notes} title='All Notes' isPinned={false} />
     </div>
   );
 }
