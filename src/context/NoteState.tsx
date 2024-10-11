@@ -22,7 +22,7 @@ const NoteState: React.FC<NoteStateProps> = (props) => {
 
   const getNotes = async () => {
     const url = `${host}/note/get-all-notes/`;
-    const token = localStorage.getItem('inotebook-token') || '';
+    const token = localStorage.getItem('inotebook-token');
 
     const response = await fetch(url, {
       method: 'GET',

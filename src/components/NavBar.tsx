@@ -1,17 +1,16 @@
 import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import Form from 'react-bootstrap/Form';
+import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 function NavBar() {
-  const [searchText, setSearchText] = useState('');
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log(searchText);
+  const logout = () => {
+    localStorage.removeItem('inotebook-token');
+    navigate('/login');
   };
 
   return (
@@ -25,26 +24,18 @@ function NavBar() {
         <Navbar.Brand as={Link} to={'/'}>
           i-Notebook
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls='basic-navbar-nav' />
-        <Navbar.Collapse id='basic-navbar-nav'>
-          <Nav className='ms-auto'>
-            <Form className='d-flex' onSubmit={handleSearch}>
-              <Form.Control
-                type='text'
-                placeholder='Search'
-                className='me-2'
-                value={searchText}
-                onChange={(e) => setSearchText(e.target.value)}
-              />
-              <Button type='submit' className='me-3 bg-light'>
-                <i className='bi bi-search' />
-              </Button>
-            </Form>
-            <Nav.Link as={Link} to={'/'}>
-              <i className='bi bi-person-circle text-light' />
-            </Nav.Link>
+        {location.pathname === '/' && (
+          <Nav>
+            <Button as='div' className='me-3 bg-light'>
+              <Link to={'/create-note'} className='btn-link'>
+                <i className='bi bi-plus'></i>
+              </Link>
+            </Button>
+            <Button onClick={logout} className='me-3 bg-light'>
+              <i className='bi bi-box-arrow-right'></i>
+            </Button>
           </Nav>
-        </Navbar.Collapse>
+        )}
       </Container>
     </Navbar>
   );
